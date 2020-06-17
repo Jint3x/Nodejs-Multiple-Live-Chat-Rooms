@@ -9,15 +9,39 @@
     <div id="msgs">
 
     </div>
+    <input id="inp" />
+    <button id="sendMsg">Send the message</button>
 
 
     <script>
         let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
         let ws = new WebSocket("ws://localhost:8080/"+id);
+
+        let inp = document.getElementById("inp")
+        let submit = document.getElementById("sendMsg");
+
+
+        submit.addEventListener("click", () => {
+      
+      
+            ws.send(inp.value)
+        })
+
+        ws.addEventListener("message", (data) => {
+            let loadingPlace = document.getElementById("msgs")
+
+
+            let para = document.createElement("p")
+            para.textContent = data.data
+
+            loadingPlace.appendChild(para)
+            console.log(data.data)
+        })
+
         
         ws.addEventListener("open", () => {
             console.log("connected")
-            ws.send("Hey cheif!!")
+            //ws.send("Hey cheif!!")
         })
 
 

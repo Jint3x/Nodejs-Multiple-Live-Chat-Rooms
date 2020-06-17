@@ -21,12 +21,18 @@ app.get("/chat/:id", (req, res) => {
     sockets.push([newSocket, req.params.id])
 
     newSocket.on('connection', function connection(ws) {
-        console.log("connected")
-        ws.send("test")
+        console.log(`connected to ${req.params.id} room`)
+      
+        // Broadcast the message
+        ws.on('message', function incoming(data) {
+            console.log(data)   // ASD
+            newSocket.clients.forEach(function each(client) {
+              if (client.readyState === WebSocket.OPEN) {
+                client.send(data);
+              }
+            });
+          });
 
-        ws.on("message", (message) => {
-            console.log(message)
-        })
       });
 
     res.sendFile(path.join(__dirname + `/pages/${req.params.id}.html`))
