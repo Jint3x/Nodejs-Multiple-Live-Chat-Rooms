@@ -12,23 +12,22 @@ const Post = () => {
       setVal(e.target.value)
   }
 
-  function send() {
+  function sendData() {
       ws.send(val)
+      setVal("")
   }
 
-  console.log(messages)
-
-  
 
 // Connect to webhook upon rendering the page and add in into a state so you can access it later
   useEffect(() => {
-    let items = []
+    let items = [] // This saves ALL messages
     let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
     let ws =  new WebSocket("ws://localhost:8080/"+id);
     ws.addEventListener("message", (data) => {
+        let newItems = items.slice(0,) // We create another arr, so when we set it with setMessages the page will refresh and the list (Info) will update
+        newItems.push(data.data)
         items.push(data.data)
-        console.log(items)
-        setMessages(items)
+        setMessages(newItems)
     })
     setWs(ws)
   }, [])
@@ -39,7 +38,7 @@ const Post = () => {
   return (
    <>
       <Info messages={messages}/>
-      <Input value={val} change={change} log={send} />
+      <Input value={val} change={change} log={sendData} />
    </>
   )
 }
@@ -57,7 +56,23 @@ function Input(props) {
 
 // Render all messages
 function Info(props) {
-return <h1>{props.messages}</h1>
+    let messages = props.messages
+    
+    let lists = messages.map((element) => {
+       return <List message={element} key={element.toString()}/>
+    })
+    console.log(messages, lists)
+    return (
+    <ul>
+    {lists}
+    </ul>
+    )
+    }
+
+function List(props) {
+    return <li>{props.message}</li>
 }
+
+
 
 export default Post
