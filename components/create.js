@@ -9,6 +9,17 @@ function Create() {
         setValue(e.target.value)
     }
 
+    function createRoom() {
+      fetch("http://localhost:3000/chat_creation/create", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: value
+        })
+      })
+    }
 
 
     return (
@@ -18,7 +29,7 @@ function Create() {
   
       <div id={styles.roomc}>
           <input value={value} onChange={update} placeholder="Enter a chat room to join" />
-          <button >Create</button>
+          <button onClick={createRoom}>Create</button>
   
         </div>
       </div>
