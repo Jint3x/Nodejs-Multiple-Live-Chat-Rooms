@@ -1,0 +1,181 @@
+
+/*
+First Welcome section
+*/
+
+
+#welcome {
+    background-image: url("https://media.istockphoto.com/videos/4k-futuristic-network-artificial-intelligence-global-communication-video-id1054721720?s=640x640");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    height: 700px;
+    text-align: center;
+    font-size: 50px;
+    overflow: hidden;
+}
+
+
+#wc, #to, #chat {
+    padding: 1em 0 0 0.2em;
+    display: inline-block;
+    
+}
+
+
+#chat, #wc, #to {
+    animation-name: fade;
+    animation-duration: 1.5s;
+
+    text-shadow: 2px 2px red,
+    -2px -2px red;
+}
+
+
+#wc {
+    animation-name: left;
+    animation-duration: 0.8s;
+    position: relative;
+}
+
+#chat {
+    animation-name: right;
+    animation-duration: 0.8s;
+    position: relative;
+}
+
+#to {
+    animation-name: top;
+    animation-duration: 1s;
+    position: relative;
+}
+
+
+#redirect {
+    text-shadow: 2px 2px black,
+    -2px -2px black;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin: 6em auto 0 auto
+    
+}
+
+#redirect>h1 {
+    background-color: gray;
+    color: white;
+    padding: 0.2em;
+    opacity: 0;
+
+    animation-name: fade;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+
+}
+
+#redirect>h1:hover {
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    text-shadow: 2px 2px white,
+    2px 2px white;
+
+    transition: color 0.5s, background-color 0.5s, text-shadow 0.5s;
+
+    
+}
+
+/*
+Joining a chatroom
+*/
+
+#join {
+    width: 100%;
+    margin-top: 4em;
+
+}
+
+#join>h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+#roomj {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4em;
+}
+
+#roomj>input {
+    height: 40px;
+    font-size: 25px;
+}
+
+#roomj>button {
+    height: 40px;
+    width: 100px;
+    font-size: 30px;
+}
+
+/*
+Creating a room
+*/
+
+
+#create {
+    width: 100%;
+    margin-top: 10em;
+    margin-bottom: 5em;
+}
+
+#create>h1 {
+    font-size: 40px;
+    text-align: center;
+}
+
+#roomc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4em;
+}
+
+#roomc>input {
+    height: 40px;
+    font-size: 25px;
+}
+
+#roomc>button {
+    height: 40px;
+    width: 140px;
+    font-size: 30px;
+}
+
+
+/*
+Animations
+*/
+
+@keyframes fade {
+    from {opacity: 0}
+    to {opacity: 1;}
+}
+
+@keyframes left {
+    from {left: -100%}
+    to {left: 0}
+}
+
+@keyframes right {
+    from {right: -100%}
+    to {right: 0;}
+}
+
+@keyframes top {
+    from {top: -300px}
+    to {top: 0}
+}
