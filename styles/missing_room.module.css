@@ -1,0 +1,43 @@
+#missing {
+    height: 100%;
+    width: 100%;
+    margin-top: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#missing>img {
+    width: 20%;
+    height: auto;
+}
+
+#missing>h1 {
+    padding-top: 2em;
+}
+
+#create {
+    width: 80%;
+    margin: 3em auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#create>div {
+    margin-top: 4em;
+
+}
+
+#create>div>input {
+    width: 400px;
+    height: 50px;
+    font-size: 30px;
+}
+
+#create>div>button {
+    height: 50px;
+    width: 150px;
+    font-size: 30px;
+}

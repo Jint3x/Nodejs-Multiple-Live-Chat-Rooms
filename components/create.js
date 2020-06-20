@@ -1,4 +1,5 @@
 import styles from "../styles/homepage.module.css"
+import { create } from "../components/Create_Join.js"
 import { useState } from "react"
 
 
@@ -10,21 +11,13 @@ function Create() {
     }
 
     function createRoom() {
-      fetch("http://localhost:3000/chat_creation/create", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: value
-        })
-      })
+      create(value)
     }
 
 
     return (
-      <div id={styles.create}>
-      <h1>Create a chatroom</h1>
+      <div className={styles.create} id="create">
+      <h1 id={styles.join}>Create a chatroom</h1>
   
   
       <div id={styles.roomc}>

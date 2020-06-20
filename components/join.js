@@ -1,26 +1,18 @@
 import styles from "../styles/homepage.module.css"
 import { useState } from "react"
+import { red } from "../components/Create_Join.js"
 
 // Create the ChatRoom
 function Join() {
     const [link, setLink] = useState("")
-    const [test, setTest] = useState(false)
 
     function redirect() {
-      if (link === "") {
-        return;
-      }
-
-      if (link.includes(" ")) {
-        return
-      }
-      location.assign(`/chat/${link}`)
+      red(link)
     }
- 
 
 
     return (
-      <div id={styles.join}>
+      <div className={styles.join} id="#join">
         <h1>Join a chatroom</h1>
       
       <div id={styles.roomj}>

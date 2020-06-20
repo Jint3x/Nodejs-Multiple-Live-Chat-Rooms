@@ -24,8 +24,8 @@ function  Welcome() {
     <h1 id={styles.chat}>Chatify</h1>
 
     <div id={styles.redirect}>
-    <h1>Create a chatroom</h1>
-    <h1>Join a chatroom</h1>
+    <h1 className={styles.redirs}><a href="#create">Create a chatroom</a></h1>
+    <h1 className={styles.redirs}><a href="#join">Join a chatroom</a></h1>
     </div>
     
     </div>

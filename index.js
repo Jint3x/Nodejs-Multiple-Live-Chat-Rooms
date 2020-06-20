@@ -1,12 +1,12 @@
 const express = require("express");
-const path = require("path")
+const path = require("path");
 const app = express();
-const http = require("http")
-const bodyParser = require('body-parser')
+const http = require("http");
+const bodyParser = require('body-parser');
 const port = 3000;
 const WebSocket = require('ws');
 const server = http.createServer();
-let sockets = []
+let sockets = [];
 
 
 const next = require("next");
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-
+// Create a chat room once a request has been received from the client side
 app.post("/chat_creation/create", (req, res) => {
   let socketName = req.body.name
   let newSocket = socketName = new WebSocket.Server({ noServer: true})
@@ -31,11 +31,12 @@ app.post("/chat_creation/create", (req, res) => {
 
 })
 
+// Get the chat id query and check it if it exists in sockets. If it doesn't exit
+// Redirect to an error page, else redirect them to the chat room
 app.get("/chat/:id", (req, res) => {
   let id = req.params.id
-  console.log(sockets)
   let test = sockets.find((element) => element[1] === id)
-  if (!test) return res.redirect("/")
+  if (!test) return res.redirect("/chat_not_found")
 
   let socket = test[0]
 
@@ -57,9 +58,6 @@ app.get("/chat/:id", (req, res) => {
 })
 
 
-
-
-
 app.get("*", (req, res) => {
   return handle(req, res)
 })
@@ -75,7 +73,6 @@ app.listen(port, () => console.log("Server online"))
 // when if it can be found connect them to that socket
 server.on('upgrade', function upgrade(request, socket, head) {
     const pathname = request.url.replace("/", "");
-    console.log(pathname)
     let socketPlace = sockets.findIndex(element => element[1] === pathname)
  
     if (socketPlace + 1) {
