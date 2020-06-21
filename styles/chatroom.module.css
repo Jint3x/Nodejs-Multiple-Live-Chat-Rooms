@@ -1,0 +1,12 @@
+#heading {
+    font-size: 35px;
+    text-align: center;
+    padding-top: 1em;
+}
+
+#msgLogger {
+    margin: 0 auto;
+    background-color: black;
+    height: 500px;
+    width: 60%;
+}

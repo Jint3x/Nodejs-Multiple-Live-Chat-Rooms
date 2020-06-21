@@ -17,56 +17,49 @@ const handle = nextApp.getRequestHandler();
 
 nextApp.prepare()
 .then(() => {
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-// Create a chat room once a request has been received from the client side
+// Create a chat room once a request has been received from the client side and set event listeners
+// for connections and messages
 app.post("/chat_creation/create", (req, res) => {
-  let socketName = req.body.name
-  let newSocket = socketName = new WebSocket.Server({ noServer: true})
+  let newSocket = new WebSocket.Server({ noServer: true})
 
   sockets.push([newSocket, req.body.name])
 
+  newSocket.on('connection', function connection(ws) {
+    // Broadcast the message to all clients
+    ws.on('message', function incoming(data) {
+
+      newSocket.clients.forEach(function each(client) {     
+       if (client.readyState === WebSocket.OPEN) {
+            client.send(data);
+          }
+       });
+
+      });
+    });
 })
+
+
 
 // Get the chat id query and check it if it exists in sockets. If it doesn't exit
 // Redirect to an error page, else redirect them to the chat room
 app.get("/chat/:id", (req, res) => {
   let id = req.params.id
-  let test = sockets.find((element) => element[1] === id)
-  if (!test) return res.redirect("/chat_not_found")
+  let roomExist = sockets.find((element) => element[1] === id)
+  if (!roomExist) return res.redirect("/chat_not_found")
 
-  let socket = test[0]
-
-    socket.on('connection', function connection(ws) {
-        console.log(`connected to ${req.params.id} room`)
-      
-        // Broadcast the message
-        ws.on('message', function incoming(data) {
-          console.log(data)
-            socket.clients.forEach(function each(client) {
-              if (client.readyState === WebSocket.OPEN) {
-                client.send(data);
-              }
-            });
-          });
-
-      });
   return handle(req, res)
 })
 
-
+// Redirect all routes to nextjs if they are not about chats
 app.get("*", (req, res) => {
   return handle(req, res)
 })
 
-
 app.listen(port, () => console.log("Server online"))
-
-
-
 
 
 // Whenever someone goes to a websocket ruote, check their url against an arr with all available websockets,
@@ -78,7 +71,7 @@ server.on('upgrade', function upgrade(request, socket, head) {
     if (socketPlace + 1) {
     sockets[socketPlace][0].handleUpgrade(request, socket, head, function done(ws) {
     sockets[socketPlace][0].emit('connection', ws, request);
-      });
+      })
     }
      else {
       socket.destroy();
