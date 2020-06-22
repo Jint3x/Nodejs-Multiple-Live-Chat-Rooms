@@ -5,10 +5,19 @@ import styles from "../../styles/chatroom.module.css"
 
 
 function Post(req, res) {
+
+    // Check if they have a username, if not ask them for one
+    useEffect(() => {
+        if (!document.cookie.split(";").some(element => element.includes("username"))) {
+            let username = prompt("Enter your username")
+            document.cookie = `username=${username}`
+        }
+    })
+
     return (
         <>
         <Header />
-        <Main />
+        <Main/>
         </>
     )
 }
@@ -16,12 +25,14 @@ function Post(req, res) {
 
 function Header() {
     const [path, setPath] = useState("")
+
+
     useEffect(() => {
+
         let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
         setPath(id)
+
     }, [])
-
-
     return (
     <h1 id={styles.heading}>Chat Room: {path}</h1>
     )
@@ -30,17 +41,20 @@ function Header() {
 
 
 
-function Main() {
+function Main(props) {
     const [val, setVal] = useState("")
     const [ws, setWs] = useState("")
     const [messages, setMessages] = useState([])
+    const [connected, setConnected] = useState(0)
+    const [user, setUser] = useState("")
 
     function change(e) {
         setVal(e.target.value)
     }
   
     function sendData() {
-        ws.send(val)
+        if (val === "") return;
+        ws.send(`${user}: ${val}`)
         setVal("")
     }
   
@@ -50,37 +64,63 @@ function Main() {
       let items = [] // This saves ALL messages
       let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
       let ws =  new WebSocket("ws://localhost:8080/"+id);
+      let validUser = document.cookie.split(";").find(element => element.includes("username")).split("=")[1];
 
       ws.addEventListener("message", addItems) 
 
 
-     function addItems(data) {
-        let newItems = items.slice(0,) // We create another arr, so when we set it with setMessages the page will refresh and the list (Info) will update
-          newItems.push(data.data)
-          items.push(data.data)
-          setMessages(newItems)
+      ws.addEventListener("open", () => {
+          ws.send(`${validUser} has joined the chat`)
+      })
+
+
+      window.addEventListener("unload", () => {
+          ws.send(`${validUser} has left the chat`)
+      })
+
+      
+     function addItems(info) {
+        let data = JSON.parse(info.data)
+        let newItems = items.slice(0,)  // We create another arr, so when we set it with setMessages the page will refresh and the list (Info) will update
+
+        if (data.connected !== undefined) {
+            setConnected(data.connected)
+            return;
+        }
+
+        newItems.unshift(data.data)
+        items.unshift(data.data)
+        setMessages(newItems)
+        setUser(validUser)
      }
   
       setWs(ws) // set the WebSocket to be global
      
     }, [])
   
-
     return (
         <>
-        <MessageLogger />
+        <MessageLogger messages={messages}/>
         <MessageSender value={val} change={change} log={sendData} />
-        <MemberList />
+        <MemberList clients={connected}/>
         </>
     )
 }
 
 
 
-function MessageLogger() {
+function MessageLogger(props) {
+    let messages = props.messages
+    let listMessages = messages.map(element => {
+        return <Message data={element} key={`${element.toString()}${Math.floor(Math.random() * 100000)}`} />
+    })
+
+
     return (
         <div id={styles.msgLogger}>
-
+            <ul id={styles.messages}>
+            {listMessages}
+            </ul>
         </div>
     )
 }
@@ -88,18 +128,26 @@ function MessageLogger() {
 // Render the input and the submit button
 function MessageSender(props) {
     return (
-        <div>
+        <div id={styles.SendMessages}>
             <input value={props.value} onChange={props.change} />
-            <button onClick={props.log}>Click me to change</button>
+            <button onClick={props.log}>Send Message</button>
         </div>
     )
 }
 
 
-function MemberList() {
-    return <h1>Test Section</h1>
+function MemberList(props) {
+    return (
+        <div id={styles.connected}>
+      <h1>Currently Connected Members: {props.clients}</h1>
+      </div>
+    ) 
 }
 
+
+function Message(props) {
+    return <li>{props.data}</li>
+}
 
 
 

@@ -26,19 +26,44 @@ app.use(bodyParser.json())
 app.post("/chat_creation/create", (req, res) => {
   let newSocket = new WebSocket.Server({ noServer: true})
 
+
   sockets.push([newSocket, req.body.name])
 
   newSocket.on('connection', function connection(ws) {
-    // Broadcast the message to all clients
-    ws.on('message', function incoming(data) {
 
+      // Update client pool on new connection
+      newSocket.clients.forEach(function each(client) {     
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({connected: newSocket.clients.size}))
+           }
+        });
+        
+    
+    // Update client pool on closing connection
+    ws.on("close", () => {
+      newSocket.clients.forEach(function each(client) {     
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({connected: newSocket.clients.size}))
+           }
+        });
+      })
+        
+
+    // Broadcast a message to all clients
+    ws.on('message', function incoming(data) {
+      let info = {
+        data: data,
+      }
+      
       newSocket.clients.forEach(function each(client) {     
        if (client.readyState === WebSocket.OPEN) {
-            client.send(data);
+            client.send(JSON.stringify(info));
           }
        });
-
       });
+
+
+      
     });
 })
 

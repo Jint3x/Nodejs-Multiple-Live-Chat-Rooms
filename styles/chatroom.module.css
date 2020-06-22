@@ -1,12 +1,59 @@
 #heading {
     font-size: 35px;
     text-align: center;
-    padding-top: 1em;
+    padding: 1em 0 1em 0;
 }
+
+
+/*
+Display Messages
+*/
 
 #msgLogger {
     margin: 0 auto;
     background-color: black;
+    color: white;
     height: 500px;
     width: 60%;
+    overflow: scroll;
+}
+
+#messages {
+    padding-top: 1em;
+    list-style-type: none;
+    font-size: 50px;
+    
+}
+
+/*
+Send messages section
+*/
+
+#SendMessages {
+    margin: 0 auto;
+    width: 60%;
+    display: flex;
+    align-items: center;
+}
+
+#SendMessages>input {
+    width: 80%;
+    height: 50px;
+    font-size: 25px;
+}
+
+#SendMessages>button {
+    width: 20%;
+    height: 50px;
+    font-size: 30px;
+}
+
+/*
+People online
+*/
+
+#connected {
+    margin: 1em auto;
+    width: 60%;
+    padding-left: 10px
 }
