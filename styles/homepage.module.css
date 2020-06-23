@@ -58,7 +58,7 @@ First Welcome section
     font-size: 25px;
     display: flex;
     justify-content: space-around;
-    width: 60%;
+    width: 80%;
     margin: 6em auto 0 auto
     
 }
@@ -122,12 +122,13 @@ Joining a chatroom
 
 #roomj>input {
     height: 40px;
+    width: 40%;
     font-size: 25px;
 }
 
 #roomj>button {
     height: 40px;
-    width: 100px;
+    width: 15%;
     font-size: 30px;
 }
 
@@ -157,11 +158,12 @@ Creating a room
 #roomc>input {
     height: 40px;
     font-size: 25px;
+    width: 40%;
 }
 
 #roomc>button {
     height: 40px;
-    width: 140px;
+    width: 15%;
     font-size: 30px;
 }
 
@@ -188,4 +190,152 @@ Animations
 @keyframes top {
     from {top: -300px}
     to {top: 0}
+}
+
+
+
+/*
+Responsive
+*/
+
+
+    /* High Responsiveness */
+
+    @media (min-width: 2000px) {
+        #welcome {
+            font-size: 70px;
+        }
+
+        .redirs {
+            font-size: 70px;
+        }
+
+        .create>h1, .join>h1 {
+            font-size: 60px;
+        }
+
+        #roomj>input, #roomc>input {
+            height: 80px;
+            font-size: 30px;
+        }
+
+        #roomj>button, #roomc>button {
+            height: 80px;
+            font-size: 60px;
+        }
+    }
+
+
+    @media (min-width: 3000px) {
+        #welcome {
+            font-size: 100px;
+            height: 900px;
+        }
+
+        .redirs {
+            font-size: 85px;
+        }
+
+        .create>h1, .join>h1 {
+            padding-top: 2em;
+            font-size: 80px;
+        }
+
+        #roomj>input, #roomc>input {
+            height: 120px;
+            font-size: 70px;
+        }
+
+        #roomj>button, #roomc>button {
+            height: 120px;
+            font-size: 70px;
+        }
+
+    }
+    
+
+/* Lower Responsiveness */
+
+@media (max-width: 1200px) {
+
+    #welcome {
+        height: 500px;
+        font-size: 40px;
+    }
+
+    #redirect {
+        font-size: 19px;
+    }
+
+    #ws, #to, #chat {
+        padding-top: 1em;
+    }
+}
+
+
+@media (max-width: 850px) {
+    #welcome {
+        font-size: 28px;
+        height: 350px;
+    }
+
+    #redirect {
+        font-size: 17px;
+        width: 95%;
+    }
+
+    #roomj>button, #roomc>button {
+        width: 20%;
+    }
+
+    #roomj>input, #roomc>input {
+        width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    #welcome {
+        font-size: 18px;
+        height: 300px;
+    }
+
+    #redirect {
+        font-size: 15px;
+        width: 80%;
+        flex-direction: column;
+        margin-top: 3em;
+    }
+
+    #redirect>h1 {
+        margin: 0.5em 0;
+    }
+
+    #ws, #to, #chat {
+        padding-top: 0.5em;
+    }
+
+    .create {
+        margin-top: 6em
+    }
+
+
+    .join, .create {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+
+    .create>h1, .join>h1 {
+        font-size: 30px;
+    }
+
+    #roomc>input, #roomj>input {
+        font-size: 20px;
+        width: 70%;
+    }
+
+    #roomj>button, #roomc>button {
+        width: 30%;
+        font-size: 23px;
+    }
 }

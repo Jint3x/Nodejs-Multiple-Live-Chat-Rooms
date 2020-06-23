@@ -2,7 +2,7 @@ import styles from "../styles/homepage.module.css"
 import { useState } from "react"
 import { red } from "../components/Create_Join.js"
 
-// Create the ChatRoom
+// Create the Chat Room
 function Join() {
     const [link, setLink] = useState("")
 
@@ -12,7 +12,7 @@ function Join() {
 
 
     return (
-      <div className={styles.join} id="#join">
+      <div className={styles.join} id="join">
         <h1>Join a chatroom</h1>
       
       <div id={styles.roomj}>

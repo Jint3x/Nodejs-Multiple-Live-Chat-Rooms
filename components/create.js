@@ -17,17 +17,18 @@ function Create() {
 
     return (
       <div className={styles.create} id="create">
-      <h1 id={styles.join}>Create a chatroom</h1>
+      <h1>Create a chatroom</h1>
   
   
       <div id={styles.roomc}>
-          <input value={value} onChange={update} placeholder="Enter a chat room to join" />
+          <input value={value} onChange={update} placeholder="Enter a chat room to create" />
           <button onClick={createRoom}>Create</button>
   
         </div>
       </div>
     )
   }
-
+// Fixed typo on create => enter a chat to join
+// 
   
   export default Create
