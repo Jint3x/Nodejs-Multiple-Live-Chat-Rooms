@@ -25,9 +25,14 @@ app.use(bodyParser.json())
 // for connections and messages
 app.post("/chat_creation/create", (req, res) => {
   let newSocket = new WebSocket.Server({ noServer: true})
+  let urlToRoom = req.body.name
 
+  // If the requestest chat room path includes white spaces, remove them.
+  if (urlToRoom.includes(" ")) {
+    urlToRoom = urlToRoom.replace(/\s/, "")
+  }
 
-  sockets.push([newSocket, req.body.name])
+  sockets.push([newSocket, urlToRoom])
 
   newSocket.on('connection', function connection(ws) {
 
@@ -39,7 +44,7 @@ app.post("/chat_creation/create", (req, res) => {
         });
         
     
-    // Update client pool on closing connection
+    // Update client pool on closing connection 
     ws.on("close", () => {
       newSocket.clients.forEach(function each(client) {     
         if (client.readyState === WebSocket.OPEN) {
@@ -72,8 +77,15 @@ app.post("/chat_creation/create", (req, res) => {
 // Get the chat id query and check it if it exists in sockets. If it doesn't exit
 // Redirect to an error page, else redirect them to the chat room
 app.get("/chat/:id", (req, res) => {
-  let id = req.params.id
-  let roomExist = sockets.find((element) => element[1] === id)
+  let urlToRoom = req.params.id
+  
+  // If url path includes white spaces, remove them. 
+  if (urlToRoom.includes(" ")) { 
+    urlToRoom = urlToRoom.replace(/\s/, "")
+  }
+
+
+  let roomExist = sockets.find((element) => element[1] === urlToRoom)
   if (!roomExist) return res.redirect("/chat_not_found")
 
   return handle(req, res)

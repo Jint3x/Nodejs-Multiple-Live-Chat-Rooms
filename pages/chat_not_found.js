@@ -1,6 +1,6 @@
 import styles from "../styles/missing_room.module.css"
 import { create, red } from "../components/Create_Join"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 
 function Missing() {
@@ -20,9 +20,11 @@ function Create() {
     const [reg, setReg] = useState("")
     const [join, setJoin] = useState("")
 
+  
     function roomCreate() {
         create(reg)
     }
+
 
     function roomJoin() {
         red(join)
@@ -44,6 +46,10 @@ function Create() {
         </div>
     )
 }
+
+
+
+
 
 
 

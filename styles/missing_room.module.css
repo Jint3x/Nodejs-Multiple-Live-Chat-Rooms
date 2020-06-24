@@ -1,3 +1,5 @@
+/* Not found header and img */
+
 #missing {
     height: 100%;
     width: 100%;
@@ -17,9 +19,11 @@
     padding-top: 2em;
 }
 
+/* Creating/Joining rooms */
+
 #create {
     width: 80%;
-    margin: 3em auto 0 auto;
+    margin: 3em auto 2em auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -27,7 +31,6 @@
 
 #create>div {
     margin-top: 4em;
-
 }
 
 #create>div>input {
@@ -40,4 +43,124 @@
     height: 50px;
     width: 150px;
     font-size: 30px;
+}
+
+
+
+/* Responsive Design */
+
+
+@media (min-width: 2000px) {
+    #missing>h1 {
+        font-size: 55px;
+    }
+
+    #create {
+        width: 80%;
+    }
+
+    #create>div {
+        width: 90%;
+    }
+
+    #create>div>input {
+        width: 70%;
+        height: 60px;
+        padding-left: 1%;
+        font-size: 35px;
+    }
+    
+    #create>div>button {
+        width: 25%;
+        height: 60px;
+        font-size: 35px;
+    }
+}
+
+
+@media (min-width: 3000px) {
+    #missing>h1 {
+        font-size: 75px;
+    }
+
+
+    #create>div>input {
+        height: 80px;
+        font-size: 45px;
+    }
+    
+    #create>div>button {
+        height: 80px;
+        font-size: 45px;
+    }
+}
+
+
+@media (max-width: 1500px) {
+
+    #missing>h1 {
+        font-size: 35px;
+    }
+    
+    #create {
+        width: 90%;
+    }
+
+
+    #create>div>input {
+        width: 65%;
+        padding-left: 1%
+    }
+    
+    #create>div>button {
+        width: 23%;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    #missing>img {
+        width: 40%;
+    }
+
+    #missing>h1 {
+        font-size: 25px;
+        padding: 3em 10% 0 10%;
+    }
+
+    #create>div>button {
+        width: 25%;
+    }
+
+    #create {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #missing>img {
+        width: 50%;
+    }
+
+    #missing>h1 {
+        font-size: 25px;
+    }
+
+    #create>div {
+        margin-top: 2em;
+    }
+
+
+    #create>div>input {
+        height: 40px;
+        font-size: 20px;
+    }
+
+    #create>div>button {
+        height: 40px;
+
+        font-size: 20px;
+    }
+
 }

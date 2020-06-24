@@ -4,7 +4,7 @@ import styles from "../../styles/chatroom.module.css"
 
 
 
-function Post(req, res) {
+function Post() {
 
     // Check if they have a username, if not ask them for one
     useEffect(() => {
@@ -28,10 +28,8 @@ function Header() {
 
 
     useEffect(() => {
-
         let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
-        setPath(id)
-
+        setPath(id.replace(/%20/gi, " "))
     }, [])
     return (
     <h1 id={styles.heading}>Chat Room: {path}</h1>
@@ -52,6 +50,7 @@ function Main(props) {
         setVal(e.target.value)
     }
   
+    // Send a message (to the server) to be broadcasted to all connected clients 
     function sendData() {
         if (val === "") return;
         ws.send(`${user}: ${val}`)
@@ -62,7 +61,7 @@ function Main(props) {
   // Connect to webhook upon rendering the page and add in into a state so you can access it later
     useEffect(() => {
       let items = [] // This saves ALL messages
-      let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
+      let id = location.pathname.split("/")[location.pathname.split("/").length - 1].replace(/%20/gi, "");
       let ws =  new WebSocket("ws://localhost:8080/"+id);
       let validUser = document.cookie.split(";").find(element => element.includes("username")).split("=")[1];
 
@@ -83,6 +82,8 @@ function Main(props) {
         let data = JSON.parse(info.data)
         let newItems = items.slice(0,)  // We create another arr, so when we set it with setMessages the page will refresh and the list (Info) will update
 
+        // Catch a message from the server containing the updated number of members
+        // and update it
         if (data.connected !== undefined) {
             setConnected(data.connected)
             return;
@@ -108,7 +109,7 @@ function Main(props) {
 }
 
 
-
+// Loads all incoming messages in the chat
 function MessageLogger(props) {
     let messages = props.messages
     let listMessages = messages.map(element => {
@@ -136,6 +137,7 @@ function MessageSender(props) {
 }
 
 
+// The number of connected members
 function MemberList(props) {
     return (
         <div id={styles.connected}>
