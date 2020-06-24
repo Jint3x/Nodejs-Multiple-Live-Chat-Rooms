@@ -9,8 +9,8 @@ function Post() {
     // Check if they have a username, if not ask them for one
     useEffect(() => {
         if (!document.cookie.split(";").some(element => element.includes("username"))) {
-            let username = prompt("Enter your username")
-            document.cookie = `username=${username}`
+            let username = prompt("Enter your username");
+            document.cookie = `username=${username}`;
         }
     })
 
@@ -26,11 +26,11 @@ function Post() {
 function Header() {
     const [path, setPath] = useState("")
 
-
     useEffect(() => {
         let id = location.pathname.split("/")[location.pathname.split("/").length - 1];
         setPath(id.replace(/%20/gi, " "))
     }, [])
+
     return (
     <h1 id={styles.heading}>Chat Room: {path}</h1>
     )
@@ -128,10 +128,23 @@ function MessageLogger(props) {
 
 // Render the input and the submit button
 function MessageSender(props) {
+
+    // Runs when user presses enter on the input (instead of clicking send message btn)
+    function sendMessage(e) {
+        if (e.which === 13 || e.keyStroke === 13) return props.log()
+    }
+
     return (
-        <div id={styles.SendMessages}>
-            <input value={props.value} onChange={props.change} />
-            <button onClick={props.log}>Send Message</button>
+        <div id={styles.sendMessages}>
+
+            <input 
+            value={props.value} 
+            onChange={props.change} 
+            onKeyPress={sendMessage} 
+            />
+
+            <button onClick={props.log}>Send</button>
+
         </div>
     )
 }
@@ -141,7 +154,7 @@ function MessageSender(props) {
 function MemberList(props) {
     return (
         <div id={styles.connected}>
-      <h1>Currently Connected Members: {props.clients}</h1>
+      <h1>Connected Members: {props.clients}</h1>
       </div>
     ) 
 }

@@ -1,5 +1,5 @@
 #heading {
-    font-size: 35px;
+    font-size: 50px;
     text-align: center;
     padding: 1em 0 1em 0;
 }
@@ -19,9 +19,10 @@ Display Messages
 }
 
 #messages {
-    padding-top: 1em;
+    padding-top: 0.3em;
+    padding-left: 0.5em;
     list-style-type: none;
-    font-size: 50px;
+    font-size: 40px;
     
 }
 
@@ -29,20 +30,20 @@ Display Messages
 Send messages section
 */
 
-#SendMessages {
+#sendMessages {
     margin: 0 auto;
     width: 60%;
     display: flex;
     align-items: center;
 }
 
-#SendMessages>input {
+#sendMessages>input {
     width: 80%;
     height: 50px;
     font-size: 25px;
 }
 
-#SendMessages>button {
+#sendMessages>button {
     width: 20%;
     height: 50px;
     font-size: 30px;
@@ -56,4 +57,118 @@ People online
     margin: 1em auto;
     width: 60%;
     padding-left: 10px
+}
+
+
+/* Responsive Design */
+
+
+@media (min-width: 2000px) {
+    #heading {
+        font-size: 60px;
+    }
+
+    #msgLogger {
+        height: 700px;
+    }
+
+
+    #sendMessages>input {
+        height: 70px;
+        font-size: 30px;
+    }
+    
+    #sendMessages>button {
+        height: 70px;
+        font-size: 35px;
+    }
+
+    #connected {
+        font-size: 35px;
+    }
+
+    #messages {
+        font-size: 50px;
+    }
+}
+
+
+
+@media (min-width: 3000px) {
+    #heading {
+        font-size: 80px;
+    }
+
+    #msgLogger {
+        height: 1000px;
+    }
+
+
+    #sendMessages>input {
+        height: 90px;
+        font-size: 35px;
+    }
+    
+    #sendMessages>button {
+        height: 90px;
+        font-size: 40px;
+    }
+
+    #connected {
+        font-size: 45px;
+    }
+
+    #messages {
+        font-size: 60px;
+    }
+}
+
+
+
+@media (max-width: 1000px) {
+    #heading {
+        font-size: 45px;
+    }
+
+    #msgLogger {
+        height: 600px;
+    }
+
+    #messages {
+        font-size: 35px;
+    }
+
+    #connected {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 750px) {
+    #connected, #sendMessages, #msgLogger {
+        width: 80%;
+    }
+}
+
+@media (max-width: 500px) {
+    #heading {
+        font-size: 30px;
+    }
+
+    #sendMessages>input {
+        width: 70%;
+    }
+
+    #sendMessages>button {
+        width: 30%;
+        font-size: 25px;
+    }
+
+    #connected {
+        padding-top: 15px;
+        font-size: 11px;
+    }
+
+    #messages {
+        font-size: 25px;
+    }
 }

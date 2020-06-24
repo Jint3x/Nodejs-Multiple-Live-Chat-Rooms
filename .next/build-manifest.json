@@ -23,6 +23,10 @@
     "/chat/[id]": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
+    ],
+    "/chat_not_found": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
     ]
   }
 }
