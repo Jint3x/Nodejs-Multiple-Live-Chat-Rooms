@@ -1,26 +1,49 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import styles from "../../styles/chatroom.module.css"
+import username from "../../styles/create_a_name.module.css"
 
-
+const EnterUser = lazy(() => import('../../components/login.js'));
 
 
 function Post() {
+    const [valid, setValid] = useState(false)
 
     // Check if they have a username, if not ask them for one
     useEffect(() => {
-        if (!document.cookie.split(";").some(element => element.includes("username"))) {
-            let username = prompt("Enter your username");
-            document.cookie = `username=${username}`;
+        if (document.cookie.split(";").some(element => element.includes("username"))) {
+           setValid(true)
         }
     })
 
+    function changeValidation() {
+        setValid(true)
+    }
+
+  
+    // If the client has an username cookie use it to connect to the chat, otherwise
+    // give them a special forum to create their username and THEN connect them to the chat
     return (
         <>
-        <Header />
-        <Main/>
+        { valid && (
+            <>
+            <Header />
+            <Main/>
+            </>
+        )}
+
+        { !valid && (
+            <Suspense>
+          <EnterUser />      
+          </Suspense>)
+        }
+
+        
         </>
-    )
+       
+    )// Either make it load dynamic components or revert it back to it's working state
 }
+
+
 
 
 function Header() {

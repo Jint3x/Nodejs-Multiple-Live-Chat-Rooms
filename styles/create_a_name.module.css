@@ -1,0 +1,38 @@
+#main {
+    position: fixed;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#center {
+    background-color: white;
+    margin: 0 auto;
+    width: 70%;
+    height: 60%;
+}
+
+#center>h1 {
+    padding: 1em 0;
+    font-size: 60px;
+    text-align: center;
+}
+
+#center>input {
+    font-size: 30px;
+    display: block;
+    padding-left: 0.3em;
+    height: 50px;
+    margin: 0.5em auto;
+}
+
+#center>button {
+    display: block;
+    width: 20%;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 25px;
+}

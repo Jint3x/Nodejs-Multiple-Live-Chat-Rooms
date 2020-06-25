@@ -1,10 +1,22 @@
 {
-  "./dev/noop": [
+  "../../components/login.js": [
     {
-      "id": "./node_modules/next/dist/client/dev/noop.js",
-      "name": "./node_modules/next/dist/client/dev/noop.js",
-      "file": "static/chunks/0.js",
-      "publicPath": "static/chunks/0.js"
+      "id": "",
+      "name": null,
+      "file": "static/chunks/10.46006cadab114fa9a630.js",
+      "publicPath": "static/chunks/10.46006cadab114fa9a630.js"
+    },
+    {
+      "id": "T5u8",
+      "name": "./components/login.js",
+      "file": "static/chunks/10.46006cadab114fa9a630.js",
+      "publicPath": "static/chunks/10.46006cadab114fa9a630.js"
+    },
+    {
+      "id": "p0XF",
+      "name": "./styles/create_a_name.module.css",
+      "file": "static/chunks/10.46006cadab114fa9a630.js",
+      "publicPath": "static/chunks/10.46006cadab114fa9a630.js"
     }
   ]
 }
