@@ -1,8 +1,8 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
 import styles from "../../styles/chatroom.module.css"
-import username from "../../styles/create_a_name.module.css"
+import dynamic from 'next/dynamic'
 
-const EnterUser = lazy(() => import('../../components/login.js'));
+const EnterUser = dynamic(() => import('../../components/login.js'))
 
 
 function Post() {
@@ -10,9 +10,9 @@ function Post() {
 
     // Check if they have a username, if not ask them for one
     useEffect(() => {
-        if (document.cookie.split(";").some(element => element.includes("username"))) {
-           setValid(true)
-        }
+      if (document.cookie.split(";").some(element => element.includes("username"))) {
+        setValid(true)
+      }
     })
 
     function changeValidation() {
@@ -31,16 +31,10 @@ function Post() {
             </>
         )}
 
-        { !valid && (
-            <Suspense>
-          <EnterUser />      
-          </Suspense>)
-        }
-
-        
+        { !valid && (<EnterUser done={changeValidation}/>)}     
         </>
-       
-    )// Either make it load dynamic components or revert it back to it's working state
+
+          )
 }
 
 

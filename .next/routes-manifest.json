@@ -1,1 +1,0 @@
-{"version":1,"pages404":true,"basePath":"","redirects":[],"rewrites":[],"headers":[],"dynamicRoutes":[{"page":"/chat/[id]","regex":"^\\/chat\\/([^/]+?)(?:\\/)?$","namedRegex":"^/chat/(?<id>[^/]+?)(?:/)?$","routeKeys":["id"]}]}

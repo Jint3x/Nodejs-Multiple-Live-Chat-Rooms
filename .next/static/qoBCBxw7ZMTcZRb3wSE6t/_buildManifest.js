@@ -1,1 +1,0 @@
-self.__BUILD_MANIFEST = (function(a){return {"/":[a],"/chat/[id]":["static\u002Fcss\u002Fcc4083ec8ab94c0102da.css"],"/chat_not_found":["static\u002Fcss\u002Fc2c475bb3e80eb47d2b9.css"],"/index":[a]}}("static\u002Fcss\u002Fcef3b18ac4ac67d76570.css"));self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()
