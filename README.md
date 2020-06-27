@@ -6,14 +6,14 @@ The chat rooms currently show when an user has joined and ask for a username. Ca
 
 Front-end technologies used:
 
-CSS 
-Javascript
-React
-Next.js
+CSS  
+Javascript  
+React  
+Next.js  
 
 
 Back-end technologies used:
 
-Node.js
-Express.js
-ws
+Node.js  
+Express.js  
+ws  
