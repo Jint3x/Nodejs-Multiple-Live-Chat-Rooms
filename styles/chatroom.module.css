@@ -11,11 +11,10 @@ Display Messages
 
 #msgLogger {
     margin: 0 auto;
-    background-color: black;
-    color: white;
     height: 500px;
     width: 60%;
-    overflow: scroll;
+    overflow: auto;
+    word-wrap: break-word;
 }
 
 #messages {
@@ -59,6 +58,81 @@ People online
     padding-left: 10px
 }
 
+/*
+Change Theme
+*/
+
+#holder {
+    margin: 2em 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+#themeContainer {
+    width: 60%;
+    margin: 2em auto;
+}
+
+#themeContainer>h1 {
+    text-align: center;
+    border-bottom: 2px solid red;
+}
+
+/* IDs used for the choose theme templates || Classes are used for the messageLogger when changing themes*/
+
+#black, #white, #red, #yellow, #green, #pink {
+    margin-bottom: 2em;
+    width: 30%;
+    border: 4px solid gray;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.black {
+    background-color: black;
+    color: white;
+}
+
+.white {
+    border: 3px solid black;
+    background-color: white;
+    color: black;
+}
+
+.red {
+    background-color: red;
+    color: white
+}
+
+.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
+
+.pink {
+    background-color: rgb(255, 162, 178);
+    color: black;
+}
+
+#black:hover, #white:hover, #red:hover, #yellow:hover, #pink:hover, #green:hover {
+    transform: scale(1.1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+
 
 /* Responsive Design */
 
@@ -89,6 +163,14 @@ People online
 
     #messages {
         font-size: 50px;
+    }
+
+    #themeContainer {
+        font-size: 2rem;
+    }
+
+    #black, #white, #red, #yellow, #green, #pink {
+        height: 160px;
     }
 }
 
@@ -121,6 +203,14 @@ People online
     #messages {
         font-size: 60px;
     }
+
+    #themeContainer {
+        font-size: 3rem;
+    }
+
+    #black, #white, #red, #yellow, #green, #pink {
+        height: 130px;
+    }
 }
 
 
@@ -131,7 +221,7 @@ People online
     }
 
     #msgLogger {
-        height: 600px;
+        height: 400px;
     }
 
     #messages {
@@ -146,6 +236,11 @@ People online
 @media (max-width: 750px) {
     #connected, #sendMessages, #msgLogger {
         width: 80%;
+    }
+
+    #black, #white, #red, #yellow, #green, #pink { 
+
+        width: 40%;
     }
 }
 
@@ -171,4 +266,14 @@ People online
     #messages {
         font-size: 25px;
     }
+
+    #black, #white, #red, #yellow, #green, #pink {
+        width: 80%;
+     }
+
+     #holder {
+         height: 300px;
+         overflow: scroll;
+     }
+  
 }
