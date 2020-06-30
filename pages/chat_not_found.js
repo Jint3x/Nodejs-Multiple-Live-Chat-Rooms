@@ -2,6 +2,9 @@ import styles from "../styles/missing_room.module.css"
 import { create, red } from "../components/Create_Join"
 import { useState } from "react"
 
+// If people try to join a non-existent room they get redirected to this page which allows
+// them to either create a room or join one. 
+
 
 function Missing() {
 

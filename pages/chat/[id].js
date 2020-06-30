@@ -55,18 +55,14 @@ function Header() {
 
 
 
-function Main(props) {
-    const [val, setVal] = useState("")
+function Main() {
     const [ws, setWs] = useState("")
     const [messages, setMessages] = useState([])
     const [connected, setConnected] = useState(0)
     const [user, setUser] = useState("")
     const [theme, setTheme] = useState("black")
 
-    // Typing in the message input
-    function change(e) {
-        setVal(e.target.value)
-    }
+
 
     // On new theme being clicked
     function changeTheme(data) {
@@ -75,10 +71,9 @@ function Main(props) {
  
   
     // Send a message (to the server) to be broadcasted to all connected clients 
-    function sendData() {
+    function sendData(val) {
         if (val === "") return;
         ws.send(`${user}: ${val}`)
-        setVal("")
     }
 
   
@@ -101,7 +96,6 @@ function Main(props) {
 
       function addItems(info) {
         let data = JSON.parse(info.data)
-        let newItems = items.slice(0,)  // We create another arr, so when we set it with setMessages the page will refresh and the list (Info) will update
     
         // Catch a message from the server containing the updated number of members
         // and update it
@@ -109,10 +103,10 @@ function Main(props) {
             setConnected(data.connected)
             return;
         }
-    
-        newItems.unshift(data.data)
+
         items.unshift(data.data)
-        setMessages(newItems)
+
+        setMessages(items.slice(0)) // Create a new arr out of the old one so it can update the list of messages
         setUser(validUser)
      }
     
@@ -129,7 +123,7 @@ function Main(props) {
     return (
         <>
         <MessageLogger messages={messages} theme={theme}/>
-        <MessageSender value={val} change={change} log={sendData} />
+        <MessageSender log={sendData} />
         <MemberList clients={connected}/>
         <ThemeChanger changeTheme={changeTheme}/>
         </>
@@ -143,6 +137,7 @@ function Main(props) {
 
 // Loads all incoming messages in the chat
 function MessageLogger(props) {
+
     let messages = props.messages
     let listMessages = messages.map(element => {
         return <Message data={element} key={`${element.toString()}${Math.floor(Math.random() * 100000)}`} />
@@ -163,24 +158,39 @@ function Message(props) {
 }
 
 
+
+
+
+
 // Render the input and the submit button
 function MessageSender(props) {
+    const [val, setVal] = useState("");
+
+    function update(e) {
+        setVal(e.target.value)
+    }
+
+    // Sends the input to the main component which then resends it to all clients
+    function sendMessage() {
+        props.log(val)
+        setVal("")
+    }
 
     // Runs when user presses enter on the input (instead of clicking send message btn)
-    function sendMessage(e) {
-        if (e.which === 13 || e.keyStroke === 13) return props.log()
+    function sendMessageWithEnter(e) {
+
+        if (e.which === 13 || e.keyStroke === 13) {
+            setVal("")
+           return props.log(val)     
+        }
+
     }
 
     return (
         <div id={styles.sendMessages}>
 
-            <input 
-            value={props.value} 
-            onChange={props.change} 
-            onKeyPress={sendMessage} 
-            />
-
-            <button onClick={props.log}>Send</button>
+            <input value={val} onChange={update} onKeyPress={sendMessageWithEnter} />
+            <button onClick={sendMessage}>Send</button>
 
         </div>
     )
@@ -189,6 +199,9 @@ function MessageSender(props) {
 
 // The number of connected members
 function MemberList(props) {
+
+    console.log("asd")
+
     return (
         <div id={styles.connected}>
       <h1>Connected Members: {props.clients}</h1>
